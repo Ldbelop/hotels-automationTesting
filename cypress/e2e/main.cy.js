@@ -11,4 +11,13 @@ describe('template spec', () => {
       cy.get(".hotelCard").should("have.length",requestedCardsNumber)
     })
   })
+  it('The price filter is applied correctly', () => {
+    const getRandomInt = (max, min) => {
+      return Math.round((Math.random() * (max - min))+min)
+    }
+    cy.get(".hotelCard").should("be.visible")
+    cy.get("#prices")
+      .should("be.visible")
+      .select(getRandomInt(1,4))
+  })
 })
