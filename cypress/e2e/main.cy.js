@@ -4,6 +4,7 @@ describe('template spec', () => {
     cy.viewport(1920, 1080)
     cy.visit('https://ldbelop.github.io/hotels/')
   })
+
   it('All the cards loaded correctly', () => {
     cy.request('GET', 'https://6256097e8646add390e01d99.mockapi.io/hotels/reservation/hotels').then((response) =>{
       requestedCardsNumber = response.body.length;
@@ -11,13 +12,39 @@ describe('template spec', () => {
       cy.get(".hotelCard").should("have.length",requestedCardsNumber)
     })
   })
+
   it('The price filter is applied correctly', () => {
     const getRandomInt = (max, min) => {
       return Math.round((Math.random() * (max - min))+min)
     }
     cy.get(".hotelCard").should("be.visible")
     cy.get("#prices")
+    .should("be.visible")
+    .select(getRandomInt(1,4))
+  })
+  
+  it('Clearing filters works', () => {
+    const getRandomInt = (max, min) => {
+      return Math.round((Math.random() * (max - min))+min)
+    }
+    cy.get(".hotelCard").should("be.visible")
+
+    cy.get("#countries")
+      .should("be.visible")
+      .select("Argentina")
+
+    cy.get("#prices")
       .should("be.visible")
       .select(getRandomInt(1,4))
+
+    cy.get("#sizes")
+      .should("be.visible")
+      .select("M")
+
+    cy.get("#clear-button")
+      .should("be.visible")
+      .click()
+
+    cy.get(".hotelCard").should("have.length",requestedCardsNumber)
   })
 })
