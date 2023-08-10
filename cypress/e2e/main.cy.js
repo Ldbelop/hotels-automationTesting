@@ -17,10 +17,27 @@ describe('template spec', () => {
     const getRandomInt = (max, min) => {
       return Math.round((Math.random() * (max - min))+min)
     }
-    cy.get(".hotelCard").should("be.visible")
+
+    cy.get(".hotelCard").should("be.visible");
+
+    const selectedValue = getRandomInt(1,4);
+    let optionText;
     cy.get("#prices")
-    .should("be.visible")
-    .select(getRandomInt(1,4))
+      .should("be.visible")
+      .select(selectedValue)
+      .find(`option[value=${selectedValue}]`)
+      .then(() => {
+        let comparingText = ""
+        for(let i = 1; i <= selectedValue; i++){
+          comparingText += "$";
+        }
+        cy.log(comparingText)
+        cy.get(".hotelData__HotelRoomInfo")
+          .find(".hotelRoomInfo__HotelPrice")
+          .should("contain.text", comparingText)
+      })
+
+    
   })
   
   it('Clearing filters works', () => {
