@@ -31,7 +31,6 @@ describe('Hotels app Frontend testing', () => {
         for(let i = 1; i <= selectedValue; i++){
           comparingText += "$";
         }
-        cy.log(comparingText)
         cy.get(".hotelData__HotelRoomInfo")
           .find(".hotelRoomInfo__HotelPrice")
           .should("contain.text", comparingText)
