@@ -1,4 +1,4 @@
-describe('template spec', () => {
+describe('Hotels app Frontend testing', () => {
   let requestedCardsNumber;
   beforeEach(() => {
     cy.viewport(1920, 1080)
