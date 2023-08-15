@@ -1,5 +1,11 @@
 describe('Hotels app Frontend testing', () => {
   let requestedCardsNumber;
+
+  const getRandomInt = (max, min) => {
+      return Math.round((Math.random() * (max - min))+min)
+  }
+
+  
   beforeEach(() => {
     cy.viewport(1920, 1080)
     cy.visit('https://ldbelop.github.io/hotels/')
@@ -40,9 +46,6 @@ describe('Hotels app Frontend testing', () => {
   })
   
   it('Clearing filters works', () => {
-    const getRandomInt = (max, min) => {
-      return Math.round((Math.random() * (max - min))+min)
-    }
     cy.get(".hotelCard").should("be.visible")
 
     cy.get("#countries")
